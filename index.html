@@ -1,0 +1,43 @@
+<html>
+<head>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(function () {
+  var colors = ["red", "green", "lime", "orange", "blue", "cyan", "violet", "brown", "aqua", "pink", "purple", "yellow", 
+                "#4AFF00", "#4D084B", "#FF3800", "#CD071E", "#FF0800", "#004225"];
+
+  function act(e){
+    var color = Math.floor(Math.random() * colors.length);
+    $(e.target).css("background", colors[color]).text(color);
+    setTimeout(function(){ $(e.target).css("background", "none") }, 2000);
+  }
+
+  $(".square").each(function(i, e) { 
+    $(e).height($(e).width()).mousedown(act);
+  });
+});
+</script>
+<style type="text/css">
+.btn{
+  width: 20%;
+  border: 5px solid gray;
+  float: left;
+  margin: 20px;
+}
+</style>
+</head>
+<body>
+<div class="btn square"> </div>
+<div class="btn square"> </div>
+<div class="btn square"> </div>
+<div class="btn square"> </div>
+
+<div class="btn square"> </div>
+<div class="btn square"> </div>
+<div class="btn square"> </div>
+<div class="btn square"> </div>
+</body>
+</html>
