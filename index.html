@@ -9,15 +9,30 @@
 $(function () {
   var colors = ["red", "green", "lime", "orange", "blue", "cyan", "violet", "brown", "aqua", "pink", "purple", "yellow", 
                 "#4AFF00", "#4D084B", "#FF3800", "#CD071E", "#FF0800", "#004225"];
+  var funs = [];
 
   function act(e){
     var color = Math.floor(Math.random() * colors.length);
-    $(e.target).css("background", colors[color]).text(color);
-    setTimeout(function(){ $(e.target).css("background", "none") }, 2000);
+    var target = $(e.target);
+    var audio = target.find("audio")[0];
+    var i = target.data("index");
+
+    target.css("background-color", colors[color]);
+    audio.currentTime = 0;
+    
+    if(audio.paused){
+	audio.play()
+    }
+
+    if(funs[i]){
+      clearTimeout(funs[i]);
+    }
+
+    funs[i] = setTimeout(function(){ funs[i] = null; target.css("background-color", "transparent"); audio.pause(); }, 3000);
   }
 
   $(".square").each(function(i, e) { 
-    $(e).height($(e).width()).tapstart(act);
+    $(e).data("index", i).height($(e).width()).css("line-height", ($(e).width() - 2) + "px").tapstart(act);
   });
 });
 </script>
@@ -27,18 +42,53 @@ $(function () {
   border: 5px solid gray;
   float: left;
   margin: 10px;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: center; 
+}
+.cow{
+  background-image: url('img/cow.png');
+  background-size: 120% 90%
+}
+.cat{
+  background-image: url('img/cat.png');
+  background-size: 120% 95%
+}
+.dog{
+  background-image: url('img/dog.png');
+  background-size: 120% 120%
+}
+.goat{
+  background-image: url('img/goat.png');
+  background-size: 100% 100%
+}
+.hen{
+  background-image: url('img/hen.png');
+  background-size: 90% 100%
+}
+.sheep{
+  background-image: url('img/sheep.png');
+  background-size: 95% 95%
+}
+.duck{
+  background-image: url('img/duck.png');
+  background-size: 95% 95%
+}
+.cock{
+  background-image: url('img/cock.png');
+  background-size: 110% 110%
 }
 </style>
 </head>
 <body>
-<div class="btn square"> </div>
-<div class="btn square"> </div>
-<div class="btn square"> </div>
-<div class="btn square"> </div>
+<div class="btn square cow"><audio src="sound/cow.mp3" /></div>
+<div class="btn square cat"><audio src="sound/cat.mp3" /></div>
+<div class="btn square dog"><audio src="sound/dog.mp3" /></div>
+<div class="btn square cock"><audio src="sound/cock.mp3" /></div>
 
-<div class="btn square"> </div>
-<div class="btn square"> </div>
-<div class="btn square"> </div>
-<div class="btn square"> </div>
+<div class="btn square sheep"><audio src="sound/sheep.mp3"/></div>
+<div class="btn square hen"><audio src="sound/hen.mp3"/></div>
+<div class="btn square duck"><audio src="sound/duck.mp3"/></div>
+<div class="btn square goat"><audio src="sound/goat.mp3"/></div>
 </body>
 </html>
